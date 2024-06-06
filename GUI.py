@@ -25,6 +25,10 @@ FONT = "assets\\Press-Start-2P\\PressStart2P-Regular.ttf"
 
 font = pygame.font.Font(None, 36)
 
+pygame.mixer.music.load("assets\\neon-gaming.mp3")
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.3)
+mouse_click_sfx = pygame.mixer.Sound("assets\\mouse-click.wav")
 
 # Initialize a set to keep track of selected cells
 selected_cells_set = set()
@@ -79,13 +83,17 @@ def main_menu():
                 for button in buttons:
                     if button.is_clicked(mouse_pos):
                         if button.action == "quit":
+                            mouse_click_sfx.play()
                             pygame.quit()
                             sys.exit()
                         elif button.action == "9x9":
+                            mouse_click_sfx.play()
                             killer_sudoku_9x9()
                         elif button.action == "4x4":
+                            mouse_click_sfx.play()
                             killer_sudoku_4x4()
                         elif button.action == "controls":
+                            mouse_click_sfx.play()
                             controls_screen()
 
         for button in buttons:
@@ -116,8 +124,10 @@ def killer_sudoku_9x9():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if back_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
                     main_menu()
                 elif reset_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
                     cage_constraints.clear()
                     selected_cells.clear()
                     temp_cells.clear()
@@ -125,6 +135,7 @@ def killer_sudoku_9x9():
                     str = ""
                     print("Cages reset")
                 elif solve_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
                     missing_coordinates_exist = check_missing_coordinates(9, temp_cells)
 
                     if missing_coordinates_exist[0]:
@@ -144,6 +155,7 @@ def killer_sudoku_9x9():
                         except:
                             str = "No Solution Exists!!"
                 else:
+                    mouse_click_sfx.play()
                     cell = get_grid_cell_9x9(mouse_pos)
                     if cell:
                         if cell in selected_cells:
@@ -232,8 +244,10 @@ def killer_sudoku_4x4():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if back_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
                     main_menu()
                 elif reset_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
                     cage_constraints.clear()
                     selected_cells.clear()
                     temp_cells.clear()
@@ -241,6 +255,7 @@ def killer_sudoku_4x4():
                     str = ""
                     print("Cages reset")
                 elif solve_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
                     missing_coordinates_exist = check_missing_coordinates(4, temp_cells)
 
                     if missing_coordinates_exist[0]:
@@ -260,6 +275,7 @@ def killer_sudoku_4x4():
                         else:
                             str = "No Solution Exists!!"
                 else:
+                    mouse_click_sfx.play()
                     cell = get_grid_cell_4x4(mouse_pos)
                     if cell:
                         if cell in selected_cells:
@@ -376,6 +392,7 @@ def controls_screen():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if back_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
                     main_menu()
 
 
