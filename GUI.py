@@ -129,6 +129,9 @@ def killer_sudoku_9x9():
 
                     if missing_coordinates_exist[0]:
                         str = missing_coordinates_exist[1]
+                        cage_constraints.clear()
+                        selected_cells.clear()
+                        temp_cells.clear()
                     else:
                         killer_sudoku = KillerSudokuSolver(9, temp_cells)
                         solution = killer_sudoku.solve()
@@ -241,6 +244,9 @@ def killer_sudoku_4x4():
 
                     if missing_coordinates_exist[0]:
                         str = missing_coordinates_exist[1]
+                        cage_constraints.clear()
+                        selected_cells.clear()
+                        temp_cells.clear()
                     else:
                         killer_sudoku = KillerSudokuSolver(4, temp_cells)
                         solution = killer_sudoku.solve()
@@ -555,14 +561,6 @@ def check_missing_coordinates(size, cage_constraints):
         print(f"Warning: Missing coordinates for {size}x{size} Killer Sudoku:", missing_coordinates)
         warning = f"Warning: Missing coordinates"
     return [bool(missing_coordinates), warning]
-
-
-
-
-
-
-
-
 
 
 # Start the main menu
