@@ -117,10 +117,13 @@ def check_missing_coordinates(size, cage_constraints):
 
 # Example 4x4 Killer Sudoku
 cage_constraints = [
-    {'sum': 10, 'cells': [(0, 0), (0, 1), (0, 2), (0, 3)]},
-    {'sum': 10, 'cells': [(1, 1), (2, 0), (3, 0), (1, 0)]},
-    {'sum': 10, 'cells': [(1, 2), (1, 3), (2, 3), (3, 3)]},
-    {'sum': 10, 'cells': [(3, 2), (2, 2), (2, 1), (3, 1)]},
+    {"sum": 6, "cells": [(0,0),(1,0)]},
+    {"sum": 8, "cells": [(0,1),(0,2),(0,3)]},
+    {"sum": 5, "cells": [(1,1),(2,1)]},
+    {"sum": 6, "cells": [(1,2),(2,2)]},
+    {"sum": 4, "cells": [(1,3),(2,3)]},
+    {"sum": 8, "cells": [(2,0),(3,0),(3,1)]},
+    {"sum": 3, "cells": [(3,2),(3,3)]}
 ]
 
 # Example 9x9 Killer Sudoku
