@@ -29,6 +29,9 @@ pygame.mixer.music.load("assets\\neon-gaming.mp3")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.3)
 mouse_click_sfx = pygame.mixer.Sound("assets\\mouse-click.wav")
+notification_sfx = pygame.mixer.Sound("assets\\notification-interface-success-positive-corrects.mp3")
+success_sfx = pygame.mixer.Sound("assets\\message-incoming.mp3")
+failed_sfx = pygame.mixer.Sound("assets\\error.mp3")
 
 # Initialize a set to keep track of selected cells
 selected_cells_set = set()
@@ -131,7 +134,8 @@ def killer_sudoku_9x9():
                     cage_constraints.clear()
                     selected_cells.clear()
                     temp_cells.clear()
-                    solution.clear()
+                    if solution:
+                        solution.clear()
                     str = ""
                     print("Cages reset")
                 elif solve_button.is_clicked(mouse_pos):
@@ -139,6 +143,7 @@ def killer_sudoku_9x9():
                     missing_coordinates_exist = check_missing_coordinates(9, temp_cells)
 
                     if missing_coordinates_exist[0]:
+                        notification_sfx.play()
                         str = missing_coordinates_exist[1]
                         cage_constraints.clear()
                         selected_cells.clear()
@@ -148,11 +153,13 @@ def killer_sudoku_9x9():
                             killer_sudoku = KillerSudokuSolver(9, temp_cells)
                             solution = killer_sudoku.solve()
                             if solution:
+                                success_sfx.play()
                                 print(solution)
                                 print("9x9 Killer Sudoku Solution:")
                                 for row in solution:
                                     print(row)
                         except:
+                            failed_sfx.play()
                             str = "No Solution Exists!!"
                 else:
                     mouse_click_sfx.play()
@@ -251,7 +258,8 @@ def killer_sudoku_4x4():
                     cage_constraints.clear()
                     selected_cells.clear()
                     temp_cells.clear()
-                    solution.clear()
+                    if solution:
+                        solution.clear()
                     str = ""
                     print("Cages reset")
                 elif solve_button.is_clicked(mouse_pos):
@@ -259,6 +267,7 @@ def killer_sudoku_4x4():
                     missing_coordinates_exist = check_missing_coordinates(4, temp_cells)
 
                     if missing_coordinates_exist[0]:
+                        notification_sfx.play()
                         str = missing_coordinates_exist[1]
                         cage_constraints.clear()
                         selected_cells.clear()
@@ -268,11 +277,13 @@ def killer_sudoku_4x4():
                         solution = killer_sudoku.solve()
                         print(temp_cells)
                         if solution:
+                            success_sfx.play()
                             print(solution)
                             print("4x4 Killer Sudoku Solution:")
                             for row in solution:
                                 print(row)
                         else:
+                            failed_sfx.play()
                             str = "No Solution Exists!!"
                 else:
                     mouse_click_sfx.play()
