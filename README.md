@@ -1,7 +1,7 @@
 # Killer Sudoku Solver
 
 
-![Killer Sudoku Solver]([assets\ss.png](https://github.com/J1nWo0/Killer-Sudoku-Solver/blob/main/assets/ss.png))
+<img src="assets/ss.png">
 
 This repository contains a Killer Sudoku Solver implemented using Python and Pygame. The solver uses linear programming to find solutions to Killer Sudoku puzzles. It also includes a graphical user interface (GUI) for interacting with the solver.
 
