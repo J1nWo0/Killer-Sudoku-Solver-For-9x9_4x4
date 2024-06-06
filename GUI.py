@@ -133,15 +133,16 @@ def killer_sudoku_9x9():
                         selected_cells.clear()
                         temp_cells.clear()
                     else:
-                        killer_sudoku = KillerSudokuSolver(9, temp_cells)
-                        solution = killer_sudoku.solve()
-                        if solution:
-                            print(solution)
-                            print("9x9 Killer Sudoku Solution:")
-                            for row in solution:
-                                print(row)
-                        else:
-                            print("No solution exists.")
+                        try:
+                            killer_sudoku = KillerSudokuSolver(9, temp_cells)
+                            solution = killer_sudoku.solve()
+                            if solution:
+                                print(solution)
+                                print("9x9 Killer Sudoku Solution:")
+                                for row in solution:
+                                    print(row)
+                        except:
+                            str = "No Solution Exists!!"
                 else:
                     cell = get_grid_cell_9x9(mouse_pos)
                     if cell:
@@ -257,7 +258,7 @@ def killer_sudoku_4x4():
                             for row in solution:
                                 print(row)
                         else:
-                            print("No solution exists.")
+                            str = "No Solution Exists!!"
                 else:
                     cell = get_grid_cell_4x4(mouse_pos)
                     if cell:
