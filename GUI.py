@@ -21,7 +21,7 @@ HOVER_COLOR_WHITE = pygame.Color("#F5F8FB")
 LIGHT_YELLOW = pygame.Color("#FBD502")
 
 # Define fonts
-FONT = "assets\Press-Start-2P\PressStart2P-Regular.ttf"
+FONT = "assets\\Press-Start-2P\\PressStart2P-Regular.ttf"
 
 font = pygame.font.Font(None, 36)
 
@@ -65,7 +65,7 @@ def main_menu():
         Button("QUIT", 830, 600, FONT, 20, BUTTON_COLOR, HOVER_COLOR, action="quit"),
     ]
 
-    background_image = pygame.image.load("assets\MENU.jpg")
+    background_image = pygame.image.load("assets\\MENU.jpg")
 
     while True:
         screen.blit(background_image, (0,0))
@@ -364,7 +364,7 @@ def draw_4x4_grid():
 def controls_screen():
     back_button = Button("Back to Menu", 90, 53, FONT, 15, BUTTON_COLOR_WHITE, HOVER_COLOR_WHITE, action="back")
 
-    background_image = pygame.image.load("assets\CONTROLS.jpg")
+    background_image = pygame.image.load("assets\\CONTROLS.jpg")
 
     while True:
         screen.blit(background_image, (0,0))
