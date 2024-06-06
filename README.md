@@ -4,9 +4,11 @@ This repository contains a Killer Sudoku Solver implemented using Python and Pyg
 
 ## Features
 
-- Solve 4x4 and 9x9 Killer Sudoku puzzles.
-- Graphical interface for selecting puzzle sizes and viewing solutions.
-- Detection of duplicate or missing coordinates in puzzle constraints.
+- Linear Programming Solver: Efficiently solves Killer Sudoku puzzles using linear programming techniques.
+- Graphical User Interface: Intuitive and user-friendly interface built with Pygame.
+- Multiple Puzzle Sizes: Supports solving both 4x4 and 9x9 Killer Sudoku puzzles.
+- Interactive Menu: Easily select puzzle sizes and view solutions through a simple menu interface.
+- Real-time Feedback: Displays the solved puzzle on the screen for easy verification.
 
 ## Installation
 
