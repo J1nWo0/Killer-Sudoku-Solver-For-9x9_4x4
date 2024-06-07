@@ -162,9 +162,9 @@ def killer_sudoku_9x9():
                             failed_sfx.play()
                             str = "No Solution Exists!!"
                 else:
-                    mouse_click_sfx.play()
                     cell = get_grid_cell_9x9(mouse_pos)
                     if cell:
+                        mouse_click_sfx.play()
                         if cell in selected_cells:
                             selected_cells.remove(cell)
                         else:
@@ -286,9 +286,9 @@ def killer_sudoku_4x4():
                             failed_sfx.play()
                             str = "No Solution Exists!!"
                 else:
-                    mouse_click_sfx.play()
                     cell = get_grid_cell_4x4(mouse_pos)
                     if cell:
+                        mouse_click_sfx.play()
                         if cell in selected_cells:
                             selected_cells.remove(cell)
                         else:
