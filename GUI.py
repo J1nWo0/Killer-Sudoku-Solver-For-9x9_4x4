@@ -174,10 +174,16 @@ def killer_sudoku_9x9():
                 if event.key == pygame.K_RETURN and selected_cells:
                     cage_sum = get_cage_sum(9, cage_constraints)
                     if cage_sum is not None:
-                        cage_constraints.append((cage_sum, selected_cells.copy()))
-                        temp_cells.append({"sum": cage_sum, "cells": selected_cells.copy()})
-                        print(f"Added cage: Sum={cage_sum}, Cells={selected_cells}")
-                        selected_cells = []
+                        if check_for_duplicate_cells(selected_cells, cage_constraints):
+                            notification_sfx.play()
+                            str = "Duplicate cells detected in the selected cage!"
+                            selected_cells = []
+                        else:
+                            cage_constraints.append((cage_sum, selected_cells.copy()))
+                            temp_cells.append({"sum": cage_sum, "cells": selected_cells.copy()})
+                            print(f"Added cage: Sum={cage_sum}, Cells={selected_cells}")
+                            selected_cells = []
+                        
 
         # Draw grid and other components here
         draw_9x9_grid()
@@ -298,10 +304,16 @@ def killer_sudoku_4x4():
                 if event.key == pygame.K_RETURN and selected_cells:
                     cage_sum = get_cage_sum(4, cage_constraints)
                     if cage_sum is not None:
-                        cage_constraints.append((cage_sum, selected_cells.copy()))
-                        temp_cells.append({"sum": cage_sum, "cells": selected_cells.copy()})
-                        print(f"Added cage: Sum={cage_sum}, Cells={selected_cells}")
-                        selected_cells = []
+                        if check_for_duplicate_cells(selected_cells, cage_constraints):
+                            notification_sfx.play()
+                            str = "Duplicate cells detected in the selected cage!"
+                            selected_cells = []
+                        else:
+                            cage_constraints.append((cage_sum, selected_cells.copy()))
+                            temp_cells.append({"sum": cage_sum, "cells": selected_cells.copy()})
+                            print(f"Added cage: Sum={cage_sum}, Cells={selected_cells}")
+                            selected_cells = []
+                        
 
         # Draw grid and other components here
         draw_4x4_grid()
@@ -590,6 +602,12 @@ def check_missing_coordinates(size, cage_constraints):
         print(f"Warning: Missing coordinates for {size}x{size} Killer Sudoku:", missing_coordinates)
         warning = f"Warning: Missing coordinates"
     return [bool(missing_coordinates), warning]
+
+def check_for_duplicate_cells(new_cells, existing_cages):
+    for cage in existing_cages:
+        if set(new_cells) & set(cage[1]):  # Check for intersection
+            return True
+    return False
 
 
 # Start the main menu
