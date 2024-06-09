@@ -22,9 +22,9 @@ LIGHT_YELLOW = pygame.Color("#FBD502")
 
 # Define fonts
 FONT = "assets\\Press-Start-2P\\PressStart2P-Regular.ttf"
-
 font = pygame.font.Font(None, 36)
 
+# Load and play background music
 pygame.mixer.music.load("assets\\neon-gaming.mp3")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.3)
@@ -33,12 +33,9 @@ notification_sfx = pygame.mixer.Sound("assets\\notification-interface-success-po
 success_sfx = pygame.mixer.Sound("assets\\message-incoming.mp3")
 failed_sfx = pygame.mixer.Sound("assets\\error.mp3")
 
-# Initialize a set to keep track of selected cells
-selected_cells_set = set()
-
 # Position of the killer sudoku solver
-grid_origin_4x4 = (350, 190)
-grid_origin_9x9 = (320, 145)
+grid_origin_4x4 = (350, 150)
+grid_origin_9x9 = (320, 100)
 
 # Define button class
 class Button:
@@ -64,7 +61,8 @@ class Button:
         return self.text_rect.collidepoint(mouse_pos)
 
 # Function to display the main menu
-def main_menu():
+def main_menu():\
+     # Define buttons for the main menu
     buttons = [
         Button("9X9 KILLER SUDOKU", 830, 360, FONT, 17, BUTTON_COLOR, HOVER_COLOR, action="9x9"),
         Button("4X4 KILLER SUDOKU", 830, 442, FONT, 17, BUTTON_COLOR, HOVER_COLOR, action="4x4"),
@@ -72,8 +70,10 @@ def main_menu():
         Button("QUIT", 830, 600, FONT, 20, BUTTON_COLOR, HOVER_COLOR, action="quit"),
     ]
 
+     # Load background image for the menu
     background_image = pygame.image.load("assets\\MENU.jpg")
 
+    # Main loop for the menu screen
     while True:
         screen.blit(background_image, (0,0))
         
@@ -106,7 +106,8 @@ def main_menu():
 
 # Function to display the 9x9 Killer Sudoku screen
 def killer_sudoku_9x9():
-    solve_button = Button("SOLVE", 930, 300, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="solve")
+    solve_button = Button("SOLVE", 930, 210, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="solve")
+    delete_button = Button("DELETE", 930, 300, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="delete")
     reset_button = Button("RESET", 930, 390, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="reset")
     back_button = Button("BACK", 930, 482, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="back")
     cage_constraints = []
@@ -117,6 +118,7 @@ def killer_sudoku_9x9():
 
     background_image = pygame.image.load("assets/9X9.jpg")
 
+    # Main loop for the 9x9 screen
     while True:
         screen.blit(background_image, (0,0))
         
@@ -138,6 +140,13 @@ def killer_sudoku_9x9():
                         solution.clear()
                     str = ""
                     print("Cages reset")
+                elif delete_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
+                    if selected_cells:
+                        temp_cells = [cage for cage in temp_cells if not any(cell in cage["cells"] for cell in selected_cells)]
+                        cage_constraints = [(cage_sum, cells) for cage_sum, cells in cage_constraints if not any(cell in cells for cell in selected_cells)]
+                        selected_cells.clear()
+                        print("Selected cage deleted")
                 elif solve_button.is_clicked(mouse_pos):
                     mouse_click_sfx.play()
                     missing_coordinates_exist = check_missing_coordinates(9, temp_cells)
@@ -191,13 +200,14 @@ def killer_sudoku_9x9():
         highlight_cells_9x9(selected_cells)
         back_button.draw(screen)
         reset_button.draw(screen)
+        delete_button.draw(screen)
         solve_button.draw(screen)
         if solution:
             cage_constraints.clear()
             selected_cells.clear()
             temp_cells.clear()
             text_surface = font.render("Solution Found!!", True, WHITE_ROCK)
-            text_rect = text_surface.get_rect(center=(550, 620))
+            text_rect = text_surface.get_rect(center=(540, 570))
 
             # Automatically adjust the background rectangle based on the text_rect
             background_color = BLACK  # Change to your desired background color
@@ -217,7 +227,7 @@ def killer_sudoku_9x9():
             draw_solution_9x9(solution)
         else:
             text_surface = font.render(str, True, WHITE_ROCK)
-            text_rect = text_surface.get_rect(center=(550, 620))
+            text_rect = text_surface.get_rect(center=(550, 570))
 
             # Automatically adjust the background rectangle based on the text_rect
             background_color = BLACK  # Change to your desired background color
@@ -236,7 +246,8 @@ def killer_sudoku_9x9():
         pygame.display.flip()
 
 def killer_sudoku_4x4():
-    solve_button = Button("SOLVE", 930, 300, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="solve")
+    solve_button = Button("SOLVE", 930, 210, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="solve")
+    delete_button = Button("DELETE", 930, 300, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="delete")
     reset_button = Button("RESET", 930, 390, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="reset")
     back_button = Button("BACK", 930, 482, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="back")
     cage_constraints = []
@@ -268,6 +279,13 @@ def killer_sudoku_4x4():
                         solution.clear()
                     str = ""
                     print("Cages reset")
+                elif delete_button.is_clicked(mouse_pos):
+                    mouse_click_sfx.play()
+                    if selected_cells:
+                        temp_cells = [cage for cage in temp_cells if not any(cell in cage["cells"] for cell in selected_cells)]
+                        cage_constraints = [(cage_sum, cells) for cage_sum, cells in cage_constraints if not any(cell in cells for cell in selected_cells)]
+                        selected_cells.clear()
+                        print("Selected cage deleted")
                 elif solve_button.is_clicked(mouse_pos):
                     mouse_click_sfx.play()
                     missing_coordinates_exist = check_missing_coordinates(4, temp_cells)
@@ -320,6 +338,7 @@ def killer_sudoku_4x4():
         highlight_cages_4x4(cage_constraints)
         highlight_cells_4x4(selected_cells)
         back_button.draw(screen)
+        delete_button.draw(screen)
         reset_button.draw(screen)
         solve_button.draw(screen)
         if solution:
@@ -327,7 +346,7 @@ def killer_sudoku_4x4():
             selected_cells.clear()
             temp_cells.clear()
             text_surface = font.render("Solution Found!!", True, WHITE_ROCK)
-            text_rect = text_surface.get_rect(center=(550, 620))
+            text_rect = text_surface.get_rect(center=(550, 570))
 
             # Automatically adjust the background rectangle based on the text_rect
             background_color = BLACK  # Change to your desired background color
@@ -346,7 +365,7 @@ def killer_sudoku_4x4():
             draw_solution_4x4(solution)
         else:
             text_surface = font.render(str, True, WHITE_ROCK)
-            text_rect = text_surface.get_rect(center=(550, 620))
+            text_rect = text_surface.get_rect(center=(550, 570))
 
             # Automatically adjust the background rectangle based on the text_rect
             background_color = BLACK  # Change to your desired background color
@@ -490,7 +509,8 @@ def highlight_cages_4x4(cage_constraints):
 
 def get_cage_sum(size, cage_constraints):
     sum_str = ""
-    solve_button = Button("SOLVE", 930, 300, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="solve")
+    solve_button = Button("SOLVE", 930, 210, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="solve")
+    delete_button = Button("DELETE", 930, 300, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="delete")
     reset_button = Button("RESET", 930, 390, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="reset")
     back_button = Button("BACK", 930, 482, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="back")
 
@@ -520,13 +540,14 @@ def get_cage_sum(size, cage_constraints):
 
         back_button.draw(screen)
         reset_button.draw(screen)
+        delete_button.draw(screen)
         solve_button.draw(screen)
 
         # Render the text
         text_surface = font.render("Enter Cage Sum: " + sum_str, True, WHITE_ROCK)
 
         # Set the position for the text_rect
-        text_rect = text_surface.get_rect(center=(470, 620))
+        text_rect = text_surface.get_rect(center=(470, 570))
 
         # Automatically adjust the background rectangle based on the text_rect
         background_color = BLACK  # Change to your desired background color
