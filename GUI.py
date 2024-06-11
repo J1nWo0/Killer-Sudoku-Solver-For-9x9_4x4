@@ -112,7 +112,7 @@ def killer_sudoku_9x9():
     back_button = Button("BACK", 930, 482, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="back")
     cage_constraints = []
     selected_cells = []
-    temp_cells = []
+    input_cage_constraints = []
     solution = []
     str = ""
 
@@ -135,7 +135,7 @@ def killer_sudoku_9x9():
                     mouse_click_sfx.play()
                     cage_constraints.clear()
                     selected_cells.clear()
-                    temp_cells.clear()
+                    input_cage_constraints.clear()
                     if solution:
                         solution.clear()
                     str = ""
@@ -143,23 +143,23 @@ def killer_sudoku_9x9():
                 elif delete_button.is_clicked(mouse_pos):
                     mouse_click_sfx.play()
                     if selected_cells:
-                        temp_cells = [cage for cage in temp_cells if not any(cell in cage["cells"] for cell in selected_cells)]
+                        input_cage_constraints = [cage for cage in input_cage_constraints if not any(cell in cage["cells"] for cell in selected_cells)]
                         cage_constraints = [(cage_sum, cells) for cage_sum, cells in cage_constraints if not any(cell in cells for cell in selected_cells)]
                         selected_cells.clear()
                         print("Selected cage deleted")
                 elif solve_button.is_clicked(mouse_pos):
                     mouse_click_sfx.play()
-                    missing_coordinates_exist = check_missing_coordinates(9, temp_cells)
+                    missing_coordinates_exist = check_missing_coordinates(9, input_cage_constraints)
 
                     if missing_coordinates_exist[0]:
                         notification_sfx.play()
                         str = missing_coordinates_exist[1]
                         cage_constraints.clear()
                         selected_cells.clear()
-                        temp_cells.clear()
+                        input_cage_constraints.clear()
                     else:
                         try:
-                            killer_sudoku = KillerSudokuSolver(9, temp_cells)
+                            killer_sudoku = KillerSudokuSolver(9, input_cage_constraints)
                             solution = killer_sudoku.solve()
                             if solution:
                                 success_sfx.play()
@@ -189,7 +189,7 @@ def killer_sudoku_9x9():
                             selected_cells = []
                         else:
                             cage_constraints.append((cage_sum, selected_cells.copy()))
-                            temp_cells.append({"sum": cage_sum, "cells": selected_cells.copy()})
+                            input_cage_constraints.append({"sum": cage_sum, "cells": selected_cells.copy()})
                             print(f"Added cage: Sum={cage_sum}, Cells={selected_cells}")
                             selected_cells = []
                         
@@ -205,7 +205,7 @@ def killer_sudoku_9x9():
         if solution:
             cage_constraints.clear()
             selected_cells.clear()
-            temp_cells.clear()
+            input_cage_constraints.clear()
             text_surface = font.render("Solution Found!!", True, WHITE_ROCK)
             text_rect = text_surface.get_rect(center=(540, 570))
 
@@ -252,7 +252,7 @@ def killer_sudoku_4x4():
     back_button = Button("BACK", 930, 482, FONT, 30, BUTTON_COLOR, HOVER_COLOR, action="back")
     cage_constraints = []
     selected_cells = []
-    temp_cells = []
+    input_cage_constraints = []
     solution = []
     str = ""
 
@@ -274,7 +274,7 @@ def killer_sudoku_4x4():
                     mouse_click_sfx.play()
                     cage_constraints.clear()
                     selected_cells.clear()
-                    temp_cells.clear()
+                    input_cage_constraints.clear()
                     if solution:
                         solution.clear()
                     str = ""
@@ -282,24 +282,24 @@ def killer_sudoku_4x4():
                 elif delete_button.is_clicked(mouse_pos):
                     mouse_click_sfx.play()
                     if selected_cells:
-                        temp_cells = [cage for cage in temp_cells if not any(cell in cage["cells"] for cell in selected_cells)]
+                        input_cage_constraints = [cage for cage in input_cage_constraints if not any(cell in cage["cells"] for cell in selected_cells)]
                         cage_constraints = [(cage_sum, cells) for cage_sum, cells in cage_constraints if not any(cell in cells for cell in selected_cells)]
                         selected_cells.clear()
                         print("Selected cage deleted")
                 elif solve_button.is_clicked(mouse_pos):
                     mouse_click_sfx.play()
-                    missing_coordinates_exist = check_missing_coordinates(4, temp_cells)
+                    missing_coordinates_exist = check_missing_coordinates(4, input_cage_constraints)
 
                     if missing_coordinates_exist[0]:
                         notification_sfx.play()
                         str = missing_coordinates_exist[1]
                         cage_constraints.clear()
                         selected_cells.clear()
-                        temp_cells.clear()
+                        input_cage_constraints.clear()
                     else:
-                        killer_sudoku = KillerSudokuSolver(4, temp_cells)
+                        killer_sudoku = KillerSudokuSolver(4, input_cage_constraints)
                         solution = killer_sudoku.solve()
-                        print(temp_cells)
+                        print(input_cage_constraints)
                         if solution:
                             success_sfx.play()
                             print(solution)
@@ -328,7 +328,7 @@ def killer_sudoku_4x4():
                             selected_cells = []
                         else:
                             cage_constraints.append((cage_sum, selected_cells.copy()))
-                            temp_cells.append({"sum": cage_sum, "cells": selected_cells.copy()})
+                            input_cage_constraints.append({"sum": cage_sum, "cells": selected_cells.copy()})
                             print(f"Added cage: Sum={cage_sum}, Cells={selected_cells}")
                             selected_cells = []
                         
@@ -344,7 +344,7 @@ def killer_sudoku_4x4():
         if solution:
             cage_constraints.clear()
             selected_cells.clear()
-            temp_cells.clear()
+            input_cage_constraints.clear()
             text_surface = font.render("Solution Found!!", True, WHITE_ROCK)
             text_rect = text_surface.get_rect(center=(550, 570))
 
