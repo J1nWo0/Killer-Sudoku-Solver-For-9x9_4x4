@@ -15,14 +15,14 @@ This repository contains a Killer Sudoku Solver implemented using Python and Pyg
 
 ## Installation
 
-1. Install the required dependencies:
-    ```bash
-    pip install -r requirements.txt
-
-2. Clone the repository:
+1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/killer-sudoku-solver.git
    cd killer-sudoku-solver
+
+2. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
 
 ## Usage
 1. Run the GUI:
