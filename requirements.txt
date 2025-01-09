@@ -1,2 +1,2 @@
-pulp==2.6.0
-pygame==2.0.1
+pulp>=2.6.0
+pygame>=2.0.1
