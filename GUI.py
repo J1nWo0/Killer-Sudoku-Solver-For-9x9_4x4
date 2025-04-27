@@ -37,10 +37,10 @@ font = pygame.font.Font(None, 36)
 pygame.mixer.music.load(resource_path("assets/neon-gaming.mp3"))
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.3)
-mouse_click_sfx = pygame.mixer.Sound("assets\\mouse-click.wav")
-notification_sfx = pygame.mixer.Sound("assets\\notification-interface-success-positive-corrects.mp3")
-success_sfx = pygame.mixer.Sound("assets\\message-incoming.mp3")
-failed_sfx = pygame.mixer.Sound("assets\\error.mp3")
+mouse_click_sfx = pygame.mixer.Sound(resource_path("assets/mouse-click.wav"))
+notification_sfx = pygame.mixer.Sound(resource_path("assets/notification-interface-success-positive-corrects.mp3"))
+success_sfx = pygame.mixer.Sound(resource_path("assets/message-incoming.mp3"))
+failed_sfx = pygame.mixer.Sound(resource_path("assets/error.mp3"))
 
 # Position of the killer sudoku solver
 grid_origin_4x4 = (350, 150)
@@ -125,7 +125,7 @@ def killer_sudoku_9x9():
     solution = []
     str = ""
 
-    background_image = pygame.image.load("assets/9X9.jpg")
+    background_image = pygame.image.load(resource_path("assets/9X9.jpg"))
 
     # Main loop for the 9x9 screen
     while True:
@@ -265,7 +265,7 @@ def killer_sudoku_4x4():
     solution = []
     str = ""
 
-    background_image = pygame.image.load("assets/4X4.jpg")
+    background_image = pygame.image.load(resource_path("assets/4X4.jpg"))
 
     while True:
         screen.blit(background_image, (0,0))
@@ -431,7 +431,7 @@ def draw_4x4_grid():
 def controls_screen():
     back_button = Button("Back to Menu", 90, 53, FONT, 15, BUTTON_COLOR_WHITE, HOVER_COLOR_WHITE, action="back")
 
-    background_image = pygame.image.load("assets\\CONTROLS.jpg")
+    background_image = pygame.image.load(resource_path("assets/CONTROLS.jpg"))
 
     while True:
         screen.blit(background_image, (0,0))
@@ -537,12 +537,12 @@ def get_cage_sum(size, cage_constraints):
                     sum_str += event.unicode
 
         if size == 9:
-            background_image = pygame.image.load("assets/9X9.jpg")
+            background_image = pygame.image.load(resource_path("assets/9X9.jpg"))
             screen.blit(background_image, (0,0))
             draw_9x9_grid()
             highlight_cages_9x9(cage_constraints)
         else:
-            background_image = pygame.image.load("assets/4X4.jpg")
+            background_image = pygame.image.load(resource_path("assets/4X4.jpg"))
             screen.blit(background_image, (0,0))
             draw_4x4_grid()
             highlight_cages_4x4(cage_constraints)
