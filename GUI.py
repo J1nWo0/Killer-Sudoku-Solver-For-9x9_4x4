@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 from LinearProgramming import KillerSudokuSolver
 
 # Initialize pygame
@@ -20,12 +21,20 @@ BUTTON_COLOR_WHITE = pygame.Color("#EFE7D6")
 HOVER_COLOR_WHITE = pygame.Color("#F5F8FB")
 LIGHT_YELLOW = pygame.Color("#FBD502")
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS  # PyInstaller sets this when running as exe
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 # Define fonts
-FONT = "assets\\Press-Start-2P\\PressStart2P-Regular.ttf"
+FONT = resource_path("assets/Press-Start-2P/PressStart2P-Regular.ttf")
 font = pygame.font.Font(None, 36)
 
 # Load and play background music
-pygame.mixer.music.load("assets\\neon-gaming.mp3")
+pygame.mixer.music.load(resource_path("assets/neon-gaming.mp3"))
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.3)
 mouse_click_sfx = pygame.mixer.Sound("assets\\mouse-click.wav")
@@ -71,7 +80,7 @@ def main_menu():\
     ]
 
      # Load background image for the menu
-    background_image = pygame.image.load("assets\\MENU.jpg")
+    background_image = pygame.image.load(resource_path("assets/MENU.jpg"))
 
     # Main loop for the menu screen
     while True:
