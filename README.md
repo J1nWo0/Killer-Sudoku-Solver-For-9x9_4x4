@@ -1,4 +1,4 @@
-# Killer Sudoku Solver 
+# Killer Sudoku Solver
 
 
 <img src="assets/ss.png">
